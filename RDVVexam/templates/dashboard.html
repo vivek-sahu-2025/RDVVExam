@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RDVV Exam - Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <nav class="bg-gray-800 p-4 border-b border-gray-700">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-yellow-400">⚡ RDVV Exam Admin</h1>
+            <a href="/admin/" class="text-gray-300 hover:text-white">Back to Old Admin</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 p-4">
+        
+        <h2 class="text-3xl font-bold mb-6">Overview</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                <p class="text-gray-400">Total Notes</p>
+                <h3 class="text-3xl font-bold">{{ total_materials }}</h3>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+                <p class="text-gray-400">Total Downloads</p>
+                <h3 class="text-3xl font-bold">{{ total_downloads }}</h3>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+                <p class="text-gray-400">Total Views</p>
+                <h3 class="text-3xl font-bold">{{ total_views }}</h3>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                <p class="text-gray-400">Courses Active</p>
+                <h3 class="text-3xl font-bold">{{ total_courses }}</h3>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4 text-gray-300">Top 5 Downloaded Notes</h3>
+                <canvas id="downloadsChart"></canvas>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4 text-gray-300">Quick Actions</h3>
+                <div class="space-y-4">
+                    <a href="/admin/academic/material/add/" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold">
+                        + Add New Note
+                    </a>
+                    <a href="/admin/academic/subject/add/" target="_blank" class="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-lg font-bold">
+                        + Add New Subject
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const ctx = document.getElementById('downloadsChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Type: bar, line, pie etc.
+            data: {
+                labels: {{ note_titles|safe }}, // Backend se titles laye
+                datasets: [{
+                    label: '# of Downloads',
+                    data: {{ note_downloads|safe }}, // Backend se numbers laye
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#444' } },
+                    x: { grid: { color: '#444' } }
+                },
+                plugins: {
+                    legend: { labels: { color: 'white' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

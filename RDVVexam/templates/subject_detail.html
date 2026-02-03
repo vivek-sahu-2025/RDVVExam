@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    
+    <p class="text-gray-400 mb-6 text-sm">
+        <a href="{% url 'home' %}" class="hover:text-blue-400">Home</a> > 
+        <a href="{% url 'semesters' subject.semester.course.id %}" class="hover:text-blue-400">{{ subject.semester.course.name }}</a> > 
+        <span class="text-white">{{ subject.name }}</span>
+    </p>
+
+    <div class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
+            {{ subject.name }}
+        </h1>
+        <p class="text-gray-400">Semester: {{ subject.semester.semester_number }}</p>
+    </div>
+
+    <div class="flex space-x-2 mb-8 bg-gray-800 p-1 rounded-xl w-full md:w-fit">
+        <button onclick="openTab('notes')" id="btn-notes" class="flex-1 px-6 py-2 rounded-lg text-sm font-bold transition bg-blue-600 text-white shadow-lg">
+            📝 Notes
+        </button>
+        <button onclick="openTab('pyq')" id="btn-pyq" class="flex-1 px-6 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-white transition">
+            📄 PYQ Papers
+        </button>
+        <button onclick="openTab('syllabus')" id="btn-syllabus" class="flex-1 px-6 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-white transition">
+            📜 Syllabus
+        </button>
+    </div>
+
+    <div id="tab-notes" class="block animate-fade-in">
+        <div class="grid gap-4">
+            {% regroup notes by unit_name as unit_list %}
+            
+            {% for unit in unit_list %}
+            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+                <div class="bg-gray-700/50 px-6 py-3 border-b border-gray-600">
+                    <h3 class="font-bold text-yellow-400">{{ unit.grouper }}</h3>
+                </div>
+                <div class="p-4 space-y-3">
+                    {% for note in unit.list %}
+                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded-lg hover:bg-gray-750 transition">
+                        <div class="flex items-center space-x-3">
+                            <i class="ph ph-file-pdf text-red-500 text-xl"></i>
+                            <span class="text-sm md:text-base">{{ note.title }}</span>
+                        </div>
+                        <a href="{% url 'download_material' note.id %}" target="_blank" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-full transition flex items-center gap-1">
+                            Download <i class="ph ph-download-simple"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-10 text-gray-500">
+                <i class="ph ph-ghost text-4xl mb-2"></i>
+                <p>No notes uploaded yet for this subject.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tab-pyq" class="hidden animate-fade-in">
+        <h3 class="text-xl font-bold mb-4">Previous Year Papers</h3>
+        <div class="flex flex-wrap gap-4">
+            {% for paper in pyqs %}
+            <a href="{% url 'download_material' paper.id %}" target="_blank" class="glass px-6 py-4 rounded-xl border border-gray-600 hover:border-blue-400 hover:bg-blue-900/20 transition group">
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-white group-hover:text-blue-400">{{ paper.title }}</p>
+                    <p class="text-xs text-gray-400 mt-1">Click to Open</p>
+                </div>
+            </a>
+            {% empty %}
+            <p class="text-gray-500 w-full text-center">No papers found yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="tab-syllabus" class="hidden animate-fade-in">
+        {% if syllabus %}
+        <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 text-center">
+            <h3 class="text-xl font-bold mb-4">{{ syllabus.title }}</h3>
+            <a href="{% url 'download_material' syllabus.id %}" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold transition">
+                <i class="ph ph-eye"></i> View / Download Syllabus
+            </a>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center py-10">Syllabus not available.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+    function openTab(tabName) {
+        // 1. Hide all content
+        document.getElementById('tab-notes').classList.add('hidden');
+        document.getElementById('tab-pyq').classList.add('hidden');
+        document.getElementById('tab-syllabus').classList.add('hidden');
+        
+        // 2. Reset buttons style
+        const buttons = ['btn-notes', 'btn-pyq', 'btn-syllabus'];
+        buttons.forEach(btn => {
+            document.getElementById(btn).classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
+            document.getElementById(btn).classList.add('text-gray-400');
+        });
+
+        // 3. Show selected content
+        document.getElementById('tab-' + tabName).classList.remove('hidden');
+        
+        // 4. Highlight selected button
+        const activeBtn = document.getElementById('btn-' + tabName);
+        activeBtn.classList.remove('text-gray-400');
+        activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+    }
+</script>
+
+<style>
+    .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+{% endblock %}

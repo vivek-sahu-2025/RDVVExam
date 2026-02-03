@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    
+    <h2 class="text-3xl font-bold mb-8">
+        Search Results for "<span class="text-yellow-400">{{ query }}</span>"
+    </h2>
+
+    {% if results %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for subject in results %}
+        <a href="{% url 'subject_detail' subject.id %}" class="group">
+            <div class="glass p-6 rounded-xl border border-gray-700 hover:bg-gray-800 transition flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400 group-hover:text-blue-300">{{ subject.name }}</h3>
+                    <p class="text-gray-400 text-sm mt-1">
+                        {{ subject.semester.course.name }} • {{ subject.semester.semester_number }}
+                    </p>
+                </div>
+                <i class="ph ph-caret-right text-2xl text-gray-500 group-hover:text-white"></i>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16 bg-gray-800 rounded-xl border border-gray-700">
+        <i class="ph ph-magnifying-glass text-6xl text-gray-600 mb-4"></i>
+        <h3 class="text-2xl font-bold text-gray-400">Oops! No subjects found.</h3>
+        <p class="text-gray-500 mt-2">Try searching for "Physics", "B.Sc", or "Computer".</p>
+        <a href="{% url 'home' %}" class="inline-block mt-6 px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">Go Home</a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

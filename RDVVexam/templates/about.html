@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+
+    <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            About RDVV Exam Preparation
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+            We are a community-driven platform making study material accessible for every student of Rani Durgavati University. No more running around for notes!
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        
+        <div class="glass p-8 rounded-2xl border border-gray-700">
+            <div class="w-16 h-16 bg-green-600/20 rounded-full flex items-center justify-center mb-4">
+                <i class="ph ph-upload-simple text-3xl text-green-500"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Help Your Juniors 🤝</h2>
+            <p class="text-gray-400 mb-6">
+                Have good notes or previous year papers? Share them with us and get featured as a "Top Contributor".
+            </p>
+            <a href="https://forms.google.com" target="_blank" class="inline-block w-full text-center py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold transition">
+                Upload Notes via Google Form
+            </a>
+            <p class="text-xs text-gray-500 mt-3 text-center">We review and publish within 24 hours.</p>
+        </div>
+
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-2xl blur opacity-30 group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
+            
+            <div class="relative glass p-8 rounded-2xl border border-yellow-500/3">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-yellow-500 font-bold tracking-widest text-xs uppercase mb-1">Developed By</p>
+                        <h2 class="text-3xl font-bold text-white mb-2">Decode Web Tech</h2>
+                        <p class="text-gray-300 text-sm">Digital Marketing & Web Agency</p>
+                    </div>
+                    <div class="bg-yellow-500/10 p-3 rounded-lg">
+                        <i class="ph ph-code text-3xl text-yellow-500"></i>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-3 border-t border-gray-700 pt-6">
+                    <p class="text-gray-400 text-sm">Want a website or app for your business?</p>
+                    
+                    <div class="flex items-center gap-3 text-white">
+                        <i class="ph ph-whatsapp-logo text-green-500 text-xl"></i>
+                        <span class="font-bold text-lg">7999182954</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-white">
+                        <i class="ph ph-instagram-logo text-pink-500 text-xl"></i>
+                        <span class="font-bold">@decodewebtech</span>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/917999182954?text=Hi,%20I%20saw%20RDVV%20App%20and%20want%20a%20website" target="_blank" class="mt-6 block w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-bold py-3 rounded-lg text-center transition">
+                    Get Your Website
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
