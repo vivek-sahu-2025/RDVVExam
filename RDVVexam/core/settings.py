@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(=em!dq^ulr0)lsc=crujvc#5xoku!$z!_sl4)@9lec$rjt3t(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['72.60.233.98', 'rdvvexam.in', 'www.rdvvexam.in', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database Configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rdvv_db',
+        'USER': 'rdvv_user',
+        'PASSWORD': 'RdvvPass123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
