@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-(=em!dq^ulr0)lsc=crujvc#5xoku!$z!_sl4)@9lec$rjt3t(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['72.60.233.98', 'rdvvexam.in', 'www.rdvvexam.in', 'localhost', '127.0.0.1']
-
+# Isme domain aur IP dono daal do
+ALLOWED_HOSTS = ['rdvvexam.in', 'www.rdvvexam.in', '72.60.233.98', 'localhost', '127.0.0.1']
 
 # Application definition
 
