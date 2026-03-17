@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from academic.views import admin_dashboard,home,semester_list,subject_list,subject_detail,download_material
-from academic.views import search,about # Import add karna
+from academic.views import search,about,contribute # Import add karna
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('search/', search, name='search'),
     path('about/', about, name='about'), #about me
-
+    
+    path('contribute/', contribute, name='contribute'),
 
 ]

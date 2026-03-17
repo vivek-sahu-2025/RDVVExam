@@ -99,3 +99,7 @@ def search(request):
 
 def about(request):
     return render(request, 'about.html')
+
+# views.py ke andar
+def contribute(request):
+    return render(request, 'contribute.html') # Yahan apne HTML file ka exact naam daalna
